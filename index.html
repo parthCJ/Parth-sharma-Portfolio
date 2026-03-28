@@ -10,7 +10,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="is-loading">
+  <div class="intro-loader" id="intro-loader" aria-live="polite" aria-label="Loading site">
+    <div class="intro-orb intro-orb-a" aria-hidden="true"></div>
+    <div class="intro-orb intro-orb-b" aria-hidden="true"></div>
+    <div class="intro-loader-inner">
+      <p class="intro-kicker">Parth Sharma Portfolio</p>
+      <h2>
+        Building a
+        <span id="intro-word">bold</span>
+        entrance
+      </h2>
+      <p class="intro-copy">Tuning pixels, polishing interactions, and opening the stage...</p>
+      <div class="intro-progress-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="intro-progress" id="intro-progress"></div>
+      </div>
+      <p class="intro-percent" id="intro-percent">0%</p>
+    </div>
+  </div>
+
   <div class="ambient ambient-a"></div>
   <div class="ambient ambient-b"></div>
 
