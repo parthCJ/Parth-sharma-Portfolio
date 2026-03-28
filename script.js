@@ -70,3 +70,42 @@ backToTopLink?.addEventListener('click', (event) => {
   event.preventDefault();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+const cdDisk = document.getElementById('cd-disk');
+const cdAudio = document.getElementById('cd-audio');
+const playPauseIcon = document.getElementById('play-pause-icon');
+
+let isPlaying = false;
+
+const updateIcon = () => {
+  if (playPauseIcon) {
+    playPauseIcon.textContent = isPlaying ? '⏸' : '▶';
+  }
+};
+
+cdDisk?.addEventListener('click', () => {
+  if (!cdAudio) return;
+
+  if (isPlaying) {
+    cdAudio.pause();
+    isPlaying = false;
+  } else {
+    cdAudio.play().catch(() => {
+      console.log('Audio play failed');
+    });
+    isPlaying = true;
+  }
+  updateIcon();
+});
+
+cdDisk?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    cdDisk.click();
+  }
+});
+
+cdAudio?.addEventListener('ended', () => {
+  isPlaying = false;
+  updateIcon();
+});
