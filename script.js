@@ -1,3 +1,67 @@
+// Custom Cursor with Orbiting Particles
+const initCustomCursor = () => {
+  const canvas = document.createElement('canvas');
+  canvas.width = 48;
+  canvas.height = 48;
+  canvas.style.position = 'fixed';
+  canvas.style.pointerEvents = 'none';
+  canvas.style.zIndex = '99999';
+  canvas.style.display = 'none';
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  let mouseX = 0;
+  let mouseY = 0;
+  let animationTime = 0;
+
+  const drawCursor = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const time = animationTime * 0.05;
+
+    // Main circle
+    ctx.fillStyle = '#0b8e83';
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, 7, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Orbiting particles
+    const particleCount = 4;
+    const orbitRadius = 14;
+    for (let i = 0; i < particleCount; i++) {
+      const angle = (time + (i / particleCount) * Math.PI * 2);
+      const x = centerX + Math.cos(angle) * orbitRadius;
+      const y = centerY + Math.sin(angle) * orbitRadius;
+
+      ctx.fillStyle = `rgba(219, 79, 31, ${0.6 + Math.sin(time + i) * 0.4})`;
+      ctx.beginPath();
+      ctx.arc(x, y, 3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    animationTime++;
+    requestAnimationFrame(drawCursor);
+  };
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    canvas.style.left = (mouseX - 24) + 'px';
+    canvas.style.top = (mouseY - 24) + 'px';
+    canvas.style.display = 'block';
+  });
+
+  document.addEventListener('mouseleave', () => {
+    canvas.style.display = 'none';
+  });
+
+  document.body.style.cursor = 'none';
+  drawCursor();
+};
+
+initCustomCursor();
+
 const revealTargets = document.querySelectorAll('.reveal');
 
 const loader = document.getElementById('intro-loader');
